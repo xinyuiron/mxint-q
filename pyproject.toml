@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mxint"
+version = "0.1.0"
+description = "Turn intermediate results to microscaling (intx) format for LLM inference"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "torch == 2.4.1",
+    "transformers == 4.43.1",
+    "datasets == 2.20.0",
+    "sentencepiece",
+    "tokenizers >= 0.15",
+    "toml",
+    "attributedict",
+    "ipdb",
+    "packaging == 24.0",
+    "accelerate",
+    "fastchat",
+    "protobuf",
+    "flash-attn",
+    "evaluate >= 0.4.0",
+    "jsonlines",
+    "numexpr",
+    "jinja2",
+    "peft >= 0.2.0",
+    "pybind11 >= 2.6.2",
+    "pytablewriter",
+    "rouge-score >= 0.0.4",
+    "sacrebleu >= 1.5.0",
+    "scikit-learn >= 0.24.1",
+    "sqlitedict",
+    "zstandard",
+    "dill",
+    "word2number",
+    "more_itertools",
+    "fastchat",
+    "jieba",
+    "fuzzywuzzy",
+    "rouge",
+    "matplotlib",
+]
+
+[tool.setuptools.packages.find]
+exclude = ["results*", "scripts*", "examples*"]
+
+[tool.wheel]
+exclude = ["results*", "scripts*", "examples*"]
