@@ -1,6 +1,8 @@
 import os
 import torch
 import argparse
+import random
+import numpy as np
 from transformers import AutoTokenizer, AutoConfig
 from pathlib import Path
 
@@ -11,6 +13,12 @@ from evaluation.eval_longbench import longbencheval
 from quant.mxintquant import mxintquant
 
 import pdb
+
+def seed_everything(seed: int = 2):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 def main(args):
     model_name_or_path = args.model_name_or_path
@@ -107,6 +115,7 @@ def main(args):
     )
 
 if __name__ == "__main__":
+    seed_everything(2)
     parser = argparse.ArgumentParser("Arguments Parser", parents = [setup_parser()])
     args = parser.parse_args()
     main(args)

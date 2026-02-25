@@ -1,0 +1,11 @@
+{
+    "2wikimqa": 13.03,
+    "repobench-p": 19.73,
+    "hotpotqa": 8.31,
+    "trec": 28.5,
+    "multi_news": 19.65,
+    "multifieldqa_en": 22.52,
+    "qasper": 10.55,
+    "qmsum": 17.41,
+    "triviaqa": 23.14
+}

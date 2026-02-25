@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import math
 
 class WeightQuantizer(nn.Module):
     def __init__(
@@ -40,7 +39,8 @@ class WeightQuantizer(nn.Module):
         else:
             scale = (xmax - xmin) / (self.qmax - self.qmin)
             scale = scale.clamp(min = 1e-5, max = 1e5)
-            zero_point = torch.round(-(xmin) / scale).clamp(self.qmin, self.qmax)
+            # zero_point = torch.round(-(xmin) / scale).clamp(self.qmin, self.qmax)
+            zero_point = torch.round(-(xmin) / scale)
         
         x_int = torch.round(x / scale)
         if zero_point is not None:
@@ -100,7 +100,7 @@ class ActQuantizer(nn.Module):
         xmin = x.amin(dim = dim, keepdim = True)
 
         abs_max = torch.max(xmax.abs(), xmin.abs())
-        scale = torch.power(2.0, torch.floor(torch.log2(abs_max / qmax + 1e-8)))
+        scale = torch.pow(2.0, torch.round(torch.log2(abs_max / qmax)))
         scale = scale.clamp(min = 1e-5, max = 1e5)
         x_int = torch.round(x / scale).clamp(qmin, qmax)
         x_dequant = x_int.mul(scale).view(shape)

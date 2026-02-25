@@ -182,8 +182,7 @@ class LlamaAttention_MXINTQ(nn.Module):
                 key_states, value_states = past_key_value.update(key_states, value_states, self.layer_idx, cache_kwargs)
 
             key_states = self.k_quantizer(key_states, n_bits = 5)
-
-            seq_len = value_states.shape[-2]
+            
             seqlen = value_states.shape[-2]
             if seqlen % self.v_quantizer.group_size != 0:
                 part_length = seqlen % self.v_quantizer.group_size

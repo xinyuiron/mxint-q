@@ -139,7 +139,9 @@ def longbenchpred(
                     "trec", "triviaqa", "samsum", "passage_count", "passage_retrieval_en", "lcc", "repobench-p"]
     else:
         # datasets = ["2wikimqa", "repobench-p", "hotpotqa", "trec", "multi_news", "multifieldqa_en", "qasper", "qmsum", "triviaqa"]
+        # datasets = ["qasper"]
         datasets = ["multifieldqa_en"]
+        # datasets = ["qmsum"]
 
     # keep the same prompt as the original longbench
     dataset2prompt = json.load(open("./longbenchconfig/dataset2prompt.json", "r"))
@@ -148,12 +150,14 @@ def longbenchpred(
     os.makedirs("./longbench_pred_e", exist_ok= True)
     for dataset in datasets:
         if args.longbench_e:
-            data = load_dataset('THUDM/LongBench', f"{dataset}_e", split = 'test')
+            # data = load_dataset('THUDM/LongBench', f"{dataset}_e", split = 'test')
+            data = load_dataset("json", data_files = f"/home/wxy/llm/work/mxint-q/data/{dataset}_e.jsonl", split = 'train')
             os.makedirs(f"./longbench_pred_e/{model_name}", exist_ok= True)
             pred_out_path = f"./longbench_pred_e/{model_name}/"
             out_path = f"./longbench_pred_e/{model_name}/{dataset}.jsonl"
         else:
-            data = load_dataset('THUDM/LongBench', dataset, split = 'test')
+            # data = load_dataset('THUDM/LongBench', dataset, split = 'test')
+            data = load_dataset("json", data_files = f"/home/wxy/llm/work/mxint-q/data/{dataset}.jsonl", split = 'train')
             os.makedirs(f"./longbench_pred/{model_name}", exist_ok= True)
             pred_out_path = f"./longbench_pred/{model_name}/"
             out_path = f"./longbench_pred/{model_name}/{dataset}.jsonl"
